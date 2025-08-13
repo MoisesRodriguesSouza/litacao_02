@@ -1,67 +1,83 @@
-// Placeholder: lib/config/app_router.dart
-// Configuração de roteamento (exemplo básico com go_router)
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:acao_licita/features/auth/screens/login_page.dart';
-import 'package:acao_licita/features/auth/screens/signup_page.dart';
-import 'package:acao_licita/features/dashboard/screens/dashboard_page.dart';
+// lib/config/app_router.dart
+// Configuração do roteador GoRouter para navegação na aplicação.
 import 'package:acao_licita/features/process_management/screens/new_process_page.dart';
 import 'package:acao_licita/features/process_management/screens/process_detail_page.dart';
-import 'package:acao_licita/core/providers/auth_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:acao_licita/core/models/user.dart'; // Importa AppUser
+import '../core/providers/auth_provider.dart'; // Importa o provedor de autenticação
+import '../features/auth/screens/login_page.dart'; // Importa a página de login
+import '../features/dashboard/screens/dashboard_page.dart'; // Importa a página do dashboard
+import '../features/auth/screens/signup_page.dart'; // Importa a página de registo
 
-final GoRouter appRouter = GoRouter(
-  initialLocation: '/',
-  routes: [
-    GoRoute(
-      path: '/',
-      builder: (context, state) =>
-          const LoginPage(), // Página inicial será o login
-    ),
-    GoRoute(
-      path: '/signup', // Rota para a tela de cadastro
-      builder: (context, state) => const SignupPage(),
-    ),
-    GoRoute(
-      path: '/dashboard',
-      builder: (context, state) => const DashboardPage(),
-    ),
-    GoRoute(
-      path: '/new-process', // Rota para cadastro de processo
-      builder: (context, state) => const NewProcessPage(),
-    ),
-    GoRoute(
-      path: '/process-detail/:id', // Rota para detalhes do processo com ID
-      builder: (context, state) {
-        final processId = state.pathParameters['id']!;
-        return ProcessDetailPage(processId: processId);
-      },
-    ),
-  ],
-  redirect: (context, state) {
-    // Lógica de redirecionamento para UI Testes
-    // O authStateProvider agora simula o estado de login.
-    final AppUser? authUser = ProviderScope.containerOf(
-      context,
-    ).read(authStateProvider);
-    final loggedInSimulated =
-        authUser != null; // Verifica se há um usuário simulado
+// Variável de simulação para testes de UI sem Firebase ativo
+// Defina como 'true' para simular um utilizador autenticado e aceder ao dashboard.
+// Defina como 'false' para testar o fluxo de login/registo.
+const bool _simulateLoggedIn =
+    false; // <--- MANTENHA COMO 'true' PARA TESTAR O DASHBOARD
 
-    // O getter 'location' foi substituído por 'fullPath' para obter a rota atual
-    final String location = state.fullPath ?? '/'; // Garante que não seja nulo
+final goRouterProvider = Provider<GoRouter>((ref) {
+  // Observa o estado de autenticação do utilizador (do Firebase).
+  final authState = ref.watch(authStateProvider);
 
-    // Se estiver simuladamente logado e tentando ir para login ou cadastro, redireciona para o dashboard
-    if (loggedInSimulated && (location == '/' || location == '/signup')) {
-      return '/dashboard';
-    }
+  return GoRouter(
+    initialLocation: '/', // Define a rota inicial
+    routes: [
+      // Rota para a página de login
+      GoRoute(
+        path: '/',
+        name: 'login',
+        builder: (context, state) => const LoginPage(),
+      ),
+      // Rota para a página de registo
+      GoRoute(
+        path: '/signup',
+        name: 'signup',
+        builder: (context, state) => const SignupPage(),
+      ),
+      // Rota para a página do dashboard
+      GoRoute(
+        path: '/dashboard',
+        name: 'dashboard',
+        builder: (context, state) => const DashboardPage(),
+      ),
+      // Adicione outras rotas aqui conforme a aplicação cresce
+      GoRoute(
+        path: '/new-process', // Rota para cadastro de processo
+        name: 'new-process',
+        builder: (context, state) =>
+            const NewProcessPage(), // Substitua por NewProcessPage()
+      ),
+      GoRoute(
+        path: '/process-detail/:id', // Rota para detalhes do processo com ID
+        name: 'process-detail',
+        builder: (context, state) {
+          final processId = state.pathParameters['id'] ?? '';
+          return ProcessDetailPage(
+            processId: processId,
+          ); // Substitua por ProcessDetailPage($processId)
+        },
+      ),
+    ],
+    // Lógica de redirecionamento baseada no estado de autenticação (e simulação)
+    redirect: (context, state) {
+      // Se a simulação estiver ativa, sempre consideramos logado para o redirecionamento.
+      final bool loggedIn = _simulateLoggedIn
+          ? true
+          : (authState.value != null);
 
-    // Se NÃO estiver simuladamente logado e tentando acessar uma rota protegida (não login/cadastro),
-    // redireciona para o login.
-    if (!loggedInSimulated && (location != '/' && location != '/signup')) {
-      return '/';
-    }
+      final bool tryingToAuth =
+          state.fullPath == '/' || state.fullPath == '/signup';
 
-    return null; // Nenhuma redireção necessária
-  },
-);
+      if (!loggedIn) {
+        return tryingToAuth ? null : '/';
+      }
+
+      if (loggedIn) {
+        return tryingToAuth ? '/dashboard' : null;
+      }
+
+      return null;
+    },
+  );
+});

@@ -1,55 +1,43 @@
 // lib/main.dart
+// Ponto de entrada principal da aplicação Flutter.
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart'; // Para gerenciamento de estado
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:firebase_core/firebase_core.dart';
+// Importa o ficheiro gerado pelo FlutterFire CLI com as opções do Firebase
+import 'firebase_options.dart';
+// Importa a configuração do roteador da aplicação
+import 'config/app_router.dart';
 
-// Importações para a estrutura de pastas sugerida
-import 'package:acao_licita/config/app_router.dart';
-import 'package:acao_licita/core/providers/auth_provider.dart';
+Future<void> main() async {
+  // Garante que os widgets do Flutter estejam inicializados antes de configurar o Firebase
+  WidgetsFlutterBinding.ensureInitialized();
 
-// Variáveis globais para configuração do Firebase (mantidas como placeholders, mas não usadas)
-const String firebaseConfigString = String.fromEnvironment('FIREBASE_CONFIG');
-const String initialAuthToken = String.fromEnvironment('INITIAL_AUTH_TOKEN');
-const String appId = String.fromEnvironment(
-  'APP_ID',
-); // ID do aplicativo no Canvas
+  // Inicializa o Firebase com as opções da plataforma atual
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-// A função main() é o ponto de entrada do seu aplicativo Flutter.
-// Ela deve ser uma função de nível superior (não dentro de uma classe)
-// e chamar runApp() para iniciar a árvore de widgets.
-void main() {
-  // Garante que a função main seja definida aqui.
-  WidgetsFlutterBinding.ensureInitialized(); // Garante que os widgets estejam inicializados
-
-  // --- Configuração do Firebase (temporariamente desabilitada para foco na UI) ---
-  // print('Firebase initialization skipped for UI development.');
-  // ---------------------------------------------------------------------------------
-
-  // Inicia o aplicativo Flutter com Riverpod
-  runApp(ProviderScope(child: MyApp()));
+  // Executa a aplicação Flutter, envolvendo-a com ProviderScope para usar Riverpod
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends ConsumerWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Observa o estado de autenticação simulado
-    final authState = ref.watch(authStateProvider);
+    // Observa o provedor do roteador GoRouter
+    final router = ref.watch(
+      goRouterProvider,
+    ); // Correção: Acessa o router através do provedor
 
+    // Retorna MaterialApp.router para usar o sistema de roteamento do GoRouter
     return MaterialApp.router(
-      title: 'AÇÃO LÍCITA',
+      title: 'AÇÃO LÍCITA', // Título da aplicação
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        brightness: Brightness.light, // Tema padrão claro
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        useMaterial3: true,
+        primarySwatch: Colors.blue, // Define a cor primária do tema
+        useMaterial3: true, // Habilita o Material Design 3
       ),
-      darkTheme: ThemeData(
-        primarySwatch: Colors.blue,
-        brightness: Brightness.dark, // Tema padrão escuro
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        useMaterial3: true,
-      ),
-      routerConfig:
-          appRouter, // Usando o roteador configurado em config/app_router.dart
+      routerConfig: router, // Atribui a configuração do roteador
     );
   }
 }

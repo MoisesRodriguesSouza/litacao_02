@@ -1,12 +1,25 @@
-// Placeholder: lib/core/providers/auth_provider.dart
+// lib/core/providers/auth_provider.dart
+// Provedores Riverpod para gerenciar a instância do Firebase Auth e o estado de autenticação.
+import 'package:firebase_auth/firebase_auth.dart'
+    as FBAuth; // Alias para User do Firebase
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:acao_licita/core/models/user.dart'; // Importa o modelo de usuário simplificado
-import 'package:acao_licita/core/services/auth_service.dart'; // Importação adicionada/verificada
+import '../services/auth_service.dart';
 
-// Provedor que expõe o estado de autenticação (simulado)
-final authStateProvider = StateProvider<AppUser?>(
-  (ref) => null,
-); // Inicialmente sem usuário logado
+// Provedor que expõe a instância do Firebase Auth
+final firebaseAuthProvider = Provider<FBAuth.FirebaseAuth>(
+  (ref) => FBAuth.FirebaseAuth.instance,
+);
 
-// Provedor para o serviço de autenticação
-final authServiceProvider = Provider((ref) => AuthService(ref));
+// Provedor para gerenciar o estado de autenticação do utilizador (stream de User? do Firebase)
+// Retorna um AsyncValue<FBAuth.User?>
+final authStateProvider = StreamProvider<FBAuth.User?>((ref) {
+  return ref.watch(firebaseAuthProvider).authStateChanges();
+});
+
+// Provedor de estado para gerenciar o processo de autenticação usando o AuthService
+// Correção: Garante que o AuthService é criado com a instância correta do FirebaseAuth
+final authServiceProvider = Provider<AuthService>((ref) {
+  // O AuthService precisa da instância do FirebaseAuth
+  final firebaseAuthInstance = ref.watch(firebaseAuthProvider);
+  return AuthService(firebaseAuthInstance);
+});

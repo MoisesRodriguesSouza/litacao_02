@@ -1,50 +1,53 @@
-// Placeholder: lib/core/services/auth_service.dart
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:acao_licita/core/providers/auth_provider.dart';
-import 'package:acao_licita/core/models/user.dart'; // Importa o modelo de usuário simplificado
+// lib/core/services/auth_service.dart
+// Lógica de serviço para autenticação com Firebase Authentication.
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
-  final Ref _ref;
+  final FirebaseAuth _auth; // Instância do FirebaseAuth
 
-  AuthService(this._ref);
+  // O construtor agora espera apenas a instância do FirebaseAuth.
+  AuthService(this._auth);
 
-  Future<void> signInWithEmailPassword(String email, String password) async {
-    print('Simulando login para $email');
-    await Future.delayed(
-      const Duration(seconds: 2),
-    ); // Simula uma requisição de rede
-
-    if (email == 'teste@exemplo.com' && password == 'senha123') {
-      // Simula um usuário logado
-      final simulatedUser = AppUser(
-        uid: 'simulated_user_id',
-        email: email,
-        displayName: 'Usuário de Teste',
-        role: 'gestor',
-        setorId: 'setor_a',
-      );
-      _ref.read(authStateProvider.notifier).state = simulatedUser;
-    } else {
-      throw Exception('Usuário ou senha inválidos (simulado).');
-    }
+  // Método para fazer login com e-mail e palavra-passe
+  Future<void> signInWithEmailAndPassword(String email, String password) async {
+    await _auth.signInWithEmailAndPassword(email: email, password: password);
   }
 
-  Future<void> signUpWithEmailPassword(String email, String password) async {
-    print('Simulando cadastro para $email');
-    await Future.delayed(const Duration(seconds: 2));
-
-    if (email.contains('@') && password.length >= 6) {
-      // Não faz login automático após o cadastro, apenas simula o sucesso.
-      // O usuário precisará fazer login manualmente após o cadastro simulado.
-    } else {
-      throw Exception('Email inválido ou senha muito curta (simulado).');
-    }
+  // Método para registar um novo utilizador com e-mail e palavra-passe
+  Future<void> signUpWithEmailAndPassword(String email, String password) async {
+    await _auth.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
   }
 
+  // Método para fazer login com a conta Google
+  Future<void> signInWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn()
+        .signIn(); // Inicia o fluxo de login do Google
+    if (googleUser == null) {
+      // Se o utilizador cancelar o login do Google, retorna
+      return;
+    }
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication; // Obtém as credenciais do Google
+    final OAuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+    await _auth.signInWithCredential(
+      credential,
+    ); // Autentica no Firebase com as credenciais do Google
+  }
+
+  // Método para terminar a sessão do utilizador
   Future<void> signOut() async {
-    print('Simulando logout');
-    await Future.delayed(const Duration(milliseconds: 500));
-    _ref.read(authStateProvider.notifier).state =
-        null; // Limpa o usuário logado simulado
+    await _auth.signOut(); // Termina a sessão do Firebase
+    await GoogleSignIn()
+        .signOut(); // Opcional: Termina a sessão do Google se o utilizador usou o login do Google
   }
+
+  // A lógica de simulação de login foi removida daqui.
+  // Ela deve ser tratada no app_router.dart ou em testes.
 }

@@ -1,8 +1,10 @@
-// Placeholder: lib/features/auth/screens/signup_page.dart
+// lib/features/auth/screens/signup_page.dart
+// Ecrã de Registo de novos utilizadores.
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:acao_licita/core/providers/auth_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // Necessário para FirebaseAuthException
+import 'package:go_router/go_router.dart'; // Para navegação
+import '../../../core/providers/auth_provider.dart'; // Provedores de autenticação
 
 class SignupPage extends ConsumerStatefulWidget {
   const SignupPage({super.key});
@@ -12,37 +14,40 @@ class SignupPage extends ConsumerStatefulWidget {
 }
 
 class _SignupPageState extends ConsumerState<SignupPage> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
-  bool _isLoading = false;
 
-  Future<void> _submit() async {
-    if (_formKey.currentState!.validate()) {
-      setState(() {
-        _isLoading = true;
-      });
+  Future<void> _signUp() async {
+    if (_formKey.currentState?.validate() ?? false) {
+      if (_passwordController.text != _confirmPasswordController.text) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('As palavras-passe não coincidem.')),
+        );
+        return;
+      }
       try {
-        await ref
-            .read(authServiceProvider)
-            .signUpWithEmailPassword(
-              _emailController.text,
-              _passwordController.text,
-            );
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Cadastro realizado com sucesso!')),
+        final authService = ref.read(authServiceProvider);
+        await authService.signUpWithEmailAndPassword(
+          _emailController.text,
+          _passwordController.text,
         );
-        context.go('/'); // Redireciona para o login após o cadastro
+        if (!mounted) return;
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Registo bem-sucedido!')));
+        context.go('/dashboard'); // Redireciona para o dashboard após o registo
+      } on FirebaseAuthException catch (e) {
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Erro no registo: ${e.message}')),
+        );
       } catch (e) {
+        if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Erro no cadastro: ${e.toString()}')),
+          SnackBar(content: Text('Ocorreu um erro inesperado: $e')),
         );
-      } finally {
-        setState(() {
-          _isLoading = false;
-        });
       }
     }
   }
@@ -50,7 +55,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Cadastro - AÇÃO LÍCITA')),
+      appBar: AppBar(title: const Text('Registo')),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
@@ -59,27 +64,13 @@ class _SignupPageState extends ConsumerState<SignupPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  'Crie sua conta',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 32),
                 TextFormField(
                   controller: _emailController,
-                  decoration: const InputDecoration(
-                    labelText: 'Email',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                    ),
-                    prefixIcon: Icon(Icons.email),
-                  ),
+                  decoration: const InputDecoration(labelText: 'E-mail'),
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Por favor, insira seu email';
-                    }
-                    if (!value.contains('@')) {
-                      return 'Email inválido';
+                      return 'Por favor, insira um e-mail.';
                     }
                     return null;
                   },
@@ -87,20 +78,14 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _passwordController,
-                  decoration: const InputDecoration(
-                    labelText: 'Senha',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                    ),
-                    prefixIcon: Icon(Icons.lock),
-                  ),
+                  decoration: const InputDecoration(labelText: 'Palavra-passe'),
                   obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Por favor, insira sua senha';
+                      return 'Por favor, insira uma palavra-passe.';
                     }
                     if (value.length < 6) {
-                      return 'A senha deve ter pelo menos 6 caracteres';
+                      return 'A palavra-passe deve ter pelo menos 6 caracteres.';
                     }
                     return null;
                   },
@@ -109,45 +94,26 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                 TextFormField(
                   controller: _confirmPasswordController,
                   decoration: const InputDecoration(
-                    labelText: 'Confirmar Senha',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                    ),
-                    prefixIcon: Icon(Icons.lock_reset),
+                    labelText: 'Confirmar Palavra-passe',
                   ),
                   obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Por favor, confirme sua senha';
-                    }
-                    if (value != _passwordController.text) {
-                      return 'As senhas não coincidem';
+                      return 'Por favor, confirme a palavra-passe.';
                     }
                     return null;
                   },
                 ),
                 const SizedBox(height: 24),
-                _isLoading
-                    ? const CircularProgressIndicator()
-                    : ElevatedButton(
-                        onPressed: _submit,
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: const Size.fromHeight(50),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
-                        child: const Text(
-                          'Cadastrar',
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ),
-                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: _signUp,
+                  child: const Text('Registar'),
+                ),
                 TextButton(
                   onPressed: () {
-                    context.go('/'); // Voltar para a tela de login
+                    context.go('/'); // Voltar para a página de login
                   },
-                  child: const Text('Já tem uma conta? Faça login'),
+                  child: const Text('Já tem uma conta? Entre.'),
                 ),
               ],
             ),
