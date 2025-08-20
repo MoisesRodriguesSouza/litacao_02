@@ -93,8 +93,22 @@ Abra um Pull Request
 Este projeto está sob a licença MIT. Consulte o arquivo LICENSE
  para mais detalhes.
 
+## 📂 Documentos do Projeto
 
- 
+Todos os documentos relacionados estão organizados na pasta `docs/`.  
+Aqui você encontrará informações complementares e materiais de apoio para melhor compreensão do projeto.
+
+- 📑 [Relatório Técnico](docs/relatorio_tecnico.pdf)  
+- 📝 [Especificações](docs/especificacoes.pdf)  
+- 📊 [Estudo de Viabilidade](docs/estudo_viabilidade.pdf)  
+
+ ![1 - Diagrama de Casos de Uso](docs/1_Diagrama_de_Casos_de_Uso.png)
+ ![2 - Diagrama de Domínio](docs/2_Diagrama_de_Domínio.png)
+ ![3 - Fluxo de Criação de Processo](docs/Fluxo_de_Criação_de_Processo.png)
+ ![4 - Fluxo de Login](docs/Fluxo_de_Login.png)
+ ![5 - Diagrama de Fluxo](docs/4_Diagrama_de_Casos_de_Uso.png)
+ ![6 - Fluxo de Upload e Análise de Contrato (IA)](docs/Fluxo_de_Upload_e_Análise_de_Contrato_(IA).png)
+ ![](docs/4_Diagrama_de_Casos_de_Uso.png)
 ---
 
 👉 Esse README já organiza o projeto e dá uma visão clara para o time.  
