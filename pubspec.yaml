@@ -38,6 +38,8 @@ dependencies:
   cloud_firestore: ^4.15.0
   firebase_storage: ^11.7.0
   cupertino_icons: ^1.0.8
+  csv: ^5.1.1 # Para leitura de ficheiros CSV
+  path: ^1.9.0 # Para manipulação de caminhos de ficheiros
 
 dev_dependencies:
   flutter_test:
@@ -55,13 +57,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
-
-  # To add assets to your application, add an assets section, like this:
   assets:
     - assets/google_logo.png
   #   - images/a_dot_ham.jpeg

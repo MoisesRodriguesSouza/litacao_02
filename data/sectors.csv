@@ -1,0 +1,60 @@
+ID (Firestore Document ID),name (Nome do Setor),code (Código),active
+gabinete_secretario,GABINETE DO SECRETÁRIO,GABSEC,true
+recepcao_protocolo,RECEPÇÃO / PROTOCOLO,RECPROT,true
+coord_ativ_adm_gabinete,COORDENADOR DE ATIVIDADES ADMINISTRATIVAS DO GABINETE DO SECRETÁRIO,COORDADM,true
+chefia_gabinete,CHEFIA DE GABINETE,CHEFGAB,true
+subsecretario_educacao,SUBSECRETÁRIO(A) MUNICIPAL DE EDUCAÇÃO,SUBSECED,true
+ass_tec_licitacao,ASSESSORIA TÉCNICA DE LICITAÇÃO PRESIDENTE DA CL,ASTEC_LIC,true
+ass_tec_juridica,ASSESSORIA TÉCNICA JURÍDICA EDUCACIONAL,ASTEC_JUR,true
+ass_tec_controladoria,ASSESSORIA TÉCNICA PARA CONTROLADORIA INTERNA DA EDUCAÇÃO,ASTEC_CONT,true
+coord_controle_interno,COORDENAÇÃO DE CONTROLE INTERNO E ACOMPANHAMENTO DA EXECUÇÃO ORÇAMENTÁRIA,COORD_CI,true
+coord_ouvidoria,COORDENAÇÃO DE OUVIDORIA,COORD_OUV,true
+assessoria_juridica,ASSESSORIA JURÍDICA,ASS_JUR,true
+coord_planej_compras,COORDENAÇÃO DE PLANEJAMENTO DE COMPRAS,COORD_PLN_COMP,true
+coord_reg_pesquisa_precos,COORDENAÇÃO DE REGISTRO E PESQUISA DE PREÇOS,COORD_REG_PREC,true
+diretoria_administrativa,DIRETORIA ADMINISTRATIVA,DIR_ADM,true
+subsec_adj_administrativa,SUBSECRETARIA ADJUNTA ADMINISTRATIVA,SUB_ADM,true
+subsec_adj_ass_educacionais,SUBSECRETARIA ADJUNTA DE ASSUNTOS EDUCACIONAIS,SUB_ASS_ED,true
+diretoria_depto_pedagogico,DIRETORIA DO DEPARTAMENTO PEDAGÓGICO,DIR_PED,true
+coord_ed_infantil,COORDENAÇÃO DE ED. INFANTIL,COORD_ED_INF,true
+coord_apoio_alfabetizacao,COORDENAÇÃO DE APOIO DO CICLO DE ALFABETIZAÇÃO,COORD_ALF,true
+coord_apoio_anos_iniciais,COORDENAÇÃO DE APOIO DOS ANOS INICIAIS 3º AO 5º ANO,COORD_ANOS_INI,true
+coord_apoio_anos_finais,COORDENAÇÃO DE APOIO DOS ANOS FINAIS 6º AO 9º ANO,COORD_ANOS_FIN,true
+coord_eja,COORDENAÇÃO DE EJA,COORD_EJA,true
+coord_avaliacao_aprendizagem,COORDENAÇÃO DE AVALIAÇÃO DA APRENDIZAGEM,COORD_AVAL,true
+coord_esportes_arte,COORDENAÇÃO DE ESPORTES E ARTE,COORD_ESP_ART,true
+coord_apoio_prog_mec,COORDENAÇÃO DE APOIO A PROGRAMAS ESPECIAIS DO MEC,COORD_PROG_MEC,true
+coord_apoio_ed_integral,COORDENAÇÃO DE APOIO DE EDUCAÇÃO INTEGRAL,COORD_ED_INT,true
+diretoria_censo_matriculas,DIRETORIA DE CENSO E MATRÍCULAS,DIR_CENSO,true
+coord_apoio_reg_acad,COORDENAÇÃO DE APOIO DE REGISTRO E CONTROLE ACADÊMICO,COORD_REG_ACAD,true
+coord_apoio_permanencia,COORDENADOR DE APOIO A PERMANÊNCIA ESTUDANTIL,COORD_PERM,true
+diretoria_atend_educ_esp,DIRETORIA DE ATENDIMENTO EDUCACIONAL ESPECIALIZADO,DIR_AEE,true
+coord_educacao_especial,COORDENAÇÃO DE EDUCAÇÃO ESPECIAL,COORD_ED_ESP,true
+diretoria_supervisao_gestao,DIRETORIA DE SUPERVISÃO E ACOMPANHAMENTO DA GESTÃO ESCOLAR,DIR_SUP_GESC,true
+coord_apoio_supervisao,COORDENAÇÃO DE APOIO DE SUPERVISÃO ESCOLAR,COORD_SUP_ESC,true
+conselho_municipal_educacao,CONSELHO MUNICIPAL DE EDUCAÇÃO,CONSELHO_ED,true
+diretoria_planej_orc_fin,DIRETORIA DE PLANEJAMENTO ORÇAMENTÁRIO E FINANCEIRO DA EDUCAÇÃO,DIR_PLN_ORC,true
+diretoria_controle_exec_orc,DIRETORIA DE CONTROLE E EXECUÇÃO ORÇAMENTÁRIA E FINANCEIRA DA EDUCAÇÃO,DIR_CONT_EXEC,true
+coord_contabilidade_orc_fin,COORDENAÇÃO DE CONTABILIDADE, ORÇAMENTO E FINANÇAS,COORD_CONT_ORC,true
+assessor_planej_orc_fin,ASSESSOR DE PLANEJAMENTO ORÇAMENTÁRIO E FINANCEIRO,ASS_PLN_ORC,true
+assessor_controle_exec_orc,ASSESSOR DE CONTROLE E EXECUÇÃO ORÇAMENTÁRIA E FINANCEIRA,ASS_CONT_EXEC,true
+departamento_financeiro,DEPARTAMENTO FINANCEIRO,DEP_FIN,true
+assessoria_tec_contabil,ASSESSORIA TÉCNICA CONTÁBIL,ASTEC_CONTABIL,true
+subsecretaria_adj_financeira,SUBSECRETARIA ADJUNTA FINANCEIRA,SUB_FIN,true
+coord_prestacao_contas,COORDENAÇÃO DE PRESTAÇÃO DE CONTAS,COORD_PREST_CONT,true
+ass_tec_superint_fme,ASSESSORIA TÉCNICA PARA SUPERINTENDÊNCIA DO FUNDO MUNICIPAL DE EDUCAÇÃO,ASTEC_FME,true
+diretoria_infraestrutura,DIRETORIA DE INFRAESTRUTURA,DIR_INFRA,true
+coord_manutencao,COORDENAÇÃO DE MANUTENÇÃO,COORD_MANUT,true
+coord_projetos_infraestrutura,COORDENAÇÃO DE PROJETOS DE INFRAESTRUTURA,COORD_PROJ_INF,true
+assessoria_tec_infraestrutura,ASSESSORIA TÉCNICA DE INFRAESTRUTURA,ASTEC_INFRA,true
+subsecretaria_adj_infraestrutura,SUBSECRETARIA ADJUNTA DE INFRAESTRUTURA,SUB_INFRA,true
+assessor_manutencao_edif,ASSESSOR DE MANUTENÇÃO - EDIFICAÇÕES,ASS_MANUT_EDIF,true
+subsecretaria_adj_inovacao_tecnologia,Subsecretaria Adjunta de Inovação e Tecnologia SEMED,SUB_INOV_TEC,true
+subsecretaria_adj_administrativa_semed,SUBSECRETARIA ADJUNTA ADMINISTRATIVA SEMED,SUB_ADM_SEMED,true
+assessoria_tecnica_semed,ASSESSORIA TÉCNICA / SEMED,ASTEC_SEMED,true
+diretoria_de_planejamento_orcamentario_financeiro,DIRETORIA DE PLANEJAMENTO ORÇAMENTÁRIO E FINANCEIRO,DIR_PLN_ORC_FIN,true
+diretoria_de_infraestrutura_semed,DIRETORIA DE INFRAESTRUTURA SEMED,DIR_INFRA_SEMED,true
+subsecretaria_adjunta_de_assuntos_educacionais_semed,SUBSECRETARIA ADJUNTA DE ASSUNTOS EDUCACIONAIS SEMED,SUB_ASS_ED_SEMED,true
+diretoria_de_atendimento_educacional_especializado_semed,DIRETORIA DE ATENDIMENTO EDUCACIONAL ESPECIALIZADO SEMED,DIR_AEE_SEMED,true
+diretoria_de_supervisao_e_acompanhamento_da_gestao_escolar_semed,DIRETORIA DE SUPERVISÃO E ACOMPANHAMENTO DA GESTÃO ESCOLAR SEMED,DIR_SUP_GESC_SEMED,true
+conselho_municipal_de_educacao_semed,CONSELHO MUNICIPAL DE EDUCAÇÃO SEMED,CONSELHO_ED_SEMED,true

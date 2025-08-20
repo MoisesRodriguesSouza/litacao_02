@@ -2,8 +2,7 @@
 // Ecrã do Dashboard, exibido após o login bem-sucedido.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:firebase_auth/firebase_auth.dart'
-    as FBAuth; // Alias para User do Firebase
+// Alias para User do Firebase
 import '../../../core/providers/auth_provider.dart'; // Provedores de autenticação
 
 class DashboardPage extends ConsumerWidget {

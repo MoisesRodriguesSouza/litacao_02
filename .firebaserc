@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "firebase firestore:import --collection-ids=sectors firestore_data/": "licitacoes-app",
+    "licitaacao": "licitacoes-app"
+  },
+  "targets": {},
+  "etags": {}
+}

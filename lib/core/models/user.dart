@@ -1,42 +1,49 @@
-// Placeholder: lib/core/models/user.dart
-// Modelo de dados para usuários (simplificado para UI)
-// import 'package:json_annotation/json_annotation.dart'; // Comentado
-// part 'user.g.dart'; // Comentado
+// lib/core/models/user.dart
+// Modelo de dados para o utilizador da aplicação.
+// Adicionado import para Timestamp para consistência.
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-// @JsonSerializable() // Comentado
-class AppUser {
-  final String uid;
+class User {
+  final String id;
   final String email;
-  final String? displayName; // Pode ser nulo se não definido
-  final String? role; // Pode ser nulo
-  final String? setorId; // Pode ser nulo
+  final String displayName;
+  final String role; // Ex: 'admin', 'gestor', 'assessor'
+  final String sectorId; // ID do setor ao qual o utilizador pertence
+  final DateTime createdAt;
+  final DateTime lastLogin;
 
-  AppUser({
-    required this.uid,
+  User({
+    required this.id,
     required this.email,
-    this.displayName,
-    this.role,
-    this.setorId,
+    required this.displayName,
+    required this.role,
+    required this.sectorId,
+    required this.createdAt,
+    required this.lastLogin,
   });
 
-  // Métodos fromJson/toJson adaptados para dados simulados (sem json_annotation)
-  factory AppUser.fromJson(Map<String, dynamic> json) {
-    return AppUser(
-      uid: json['uid'] as String,
-      email: json['email'] as String,
-      displayName: json['displayName'] as String?,
-      role: json['role'] as String?,
-      setorId: json['setorId'] as String?,
+  // Construtor de fábrica para criar um objeto User a partir de um mapa (ex: Firestore)
+  factory User.fromFirestore(Map<String, dynamic> data, String id) {
+    return User(
+      id: id, // O ID do documento Firestore é passado como 'id'
+      email: data['email'] ?? '',
+      displayName: data['displayName'] ?? '',
+      role: data['role'] ?? 'assessor', // Role padrão como 'assessor'
+      sectorId: data['sectorId'] ?? '',
+      createdAt: (data['createdAt'] as Timestamp).toDate(),
+      lastLogin: (data['lastLogin'] as Timestamp).toDate(),
     );
   }
 
-  Map<String, dynamic> toJson() {
+  // Converte o objeto User para um mapa para salvar no Firestore
+  Map<String, dynamic> toFirestore() {
     return {
-      'uid': uid,
       'email': email,
       'displayName': displayName,
       'role': role,
-      'setorId': setorId,
+      'sectorId': sectorId,
+      'createdAt': Timestamp.fromDate(createdAt),
+      'lastLogin': Timestamp.fromDate(lastLogin),
     };
   }
 }

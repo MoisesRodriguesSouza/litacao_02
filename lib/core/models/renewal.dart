@@ -1,22 +1,19 @@
-// Placeholder: lib/core/models/renewal.dart
-// Modelo de dados para renovações/aditivos (simplificado para UI)
-// import 'package:cloud_firestore/cloud_firestore.dart'; // Comentado
-// import 'package:json_annotation/json_annotation.dart'; // Comentado
-// part 'renewal.g.dart'; // Comentado
+// lib/core/models/renewal.dart
+// Modelo de dados para renovações e aditivos contratuais.
+import 'package:cloud_firestore/cloud_firestore.dart'; // Importar para usar Timestamp
 
-// @JsonSerializable() // Comentado
 class Renewal {
-  final String? id;
-  final String processId;
-  final String type;
-  final DateTime dataInicio; // Alterado de Timestamp para DateTime
-  final DateTime dataTermino; // Alterado de Timestamp para DateTime
-  final double? valorAditivo;
-  final String? observation;
-  final bool isCompliantLaw14133;
+  final String id; // ID do documento no Firestore
+  final String processId; // ID do processo de licitação associado
+  final String type; // Ex: '1st_renewal', 'Aditivo'
+  final DateTime dataInicio;
+  final DateTime dataTermino;
+  final double? valorAditivo; // Opcional, se for um aditivo de valor
+  final String? observation; // Observações sobre a renovação/aditivo
+  final bool isCompliantLaw14133; // Indica conformidade com a Lei 14.133/2021
 
   Renewal({
-    this.id,
+    required this.id,
     required this.processId,
     required this.type,
     required this.dataInicio,
@@ -26,30 +23,35 @@ class Renewal {
     required this.isCompliantLaw14133,
   });
 
-  // Métodos fromJson/toJson adaptados para dados simulados (sem json_annotation)
-  factory Renewal.fromJson(Map<String, dynamic> json) {
+  // Construtor de fábrica para criar um objeto Renewal a partir de um documento Firestore
+  factory Renewal.fromFirestore(Map<String, dynamic> data, String id) {
     return Renewal(
-      id: json['id'] as String?,
-      processId: json['processId'] as String,
-      type: json['type'] as String,
-      dataInicio: DateTime.parse(json['dataInicio'] as String),
-      dataTermino: DateTime.parse(json['dataTermino'] as String),
-      valorAditivo: (json['valorAditivo'] as num?)?.toDouble(),
-      observation: json['observation'] as String?,
-      isCompliantLaw14133: json['isCompliantLaw14133'] as bool,
+      id: id,
+      processId: data['processId'] ?? '',
+      type: data['type'] ?? '',
+      dataInicio: (data['startDate'] as Timestamp)
+          .toDate(), // Usar 'startDate' do Firestore
+      dataTermino: (data['endDate'] as Timestamp)
+          .toDate(), // Usar 'endDate' do Firestore
+      valorAditivo: (data['additionalValue'] as num?)
+          ?.toDouble(), // Usar 'additionalValue'
+      observation: data['observation'],
+      isCompliantLaw14133:
+          data['isLaw14133Compliant'] ?? false, // Usar 'isLaw14133Compliant'
     );
   }
 
-  Map<String, dynamic> toJson() {
+  // Converte o objeto Renewal para um mapa para salvar no Firestore
+  Map<String, dynamic> toFirestore() {
     return {
-      'id': id,
       'processId': processId,
       'type': type,
-      'dataInicio': dataInicio.toIso8601String(),
-      'dataTermino': dataTermino.toIso8601String(),
-      'valorAditivo': valorAditivo,
+      'startDate': Timestamp.fromDate(dataInicio), // Salvar como 'startDate'
+      'endDate': Timestamp.fromDate(dataTermino), // Salvar como 'endDate'
+      'additionalValue': valorAditivo,
       'observation': observation,
-      'isCompliantLaw14133': isCompliantLaw14133,
+      'isLaw14133Compliant':
+          isCompliantLaw14133, // Salvar como 'isLaw14133Compliant'
     };
   }
 }

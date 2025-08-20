@@ -1,0 +1,297 @@
+{
+  "gabinete_secretario": {
+    "name": "GABINETE DO SECRETÁRIO",
+    "code": "GABSEC",
+    "active": true
+  },
+  "recepcao_protocolo": {
+    "name": "RECEPÇÃO / PROTOCOLO",
+    "code": "RECPROT",
+    "active": true
+  },
+  "coord_ativ_adm_gabinete": {
+    "name": "COORDENADOR DE ATIVIDADES ADMINISTRATIVAS DO GABINETE DO SECRETÁRIO",
+    "code": "COORDADM",
+    "active": true
+  },
+  "chefia_gabinete": {
+    "name": "CHEFIA DE GABINETE",
+    "code": "CHEFGAB",
+    "active": true
+  },
+  "subsecretario_educacao": {
+    "name": "SUBSECRETÁRIO(A) MUNICIPAL DE EDUCAÇÃO",
+    "code": "SUBSECED",
+    "active": true
+  },
+  "ass_tec_licitacao": {
+    "name": "ASSESSORIA TÉCNICA DE LICITAÇÃO PRESIDENTE DA CL",
+    "code": "ASTEC_LIC",
+    "active": true
+  },
+  "ass_tec_juridica": {
+    "name": "ASSESSORIA TÉCNICA JURÍDICA EDUCACIONAL",
+    "code": "ASTEC_JUR",
+    "active": true
+  },
+  "ass_tec_controladoria": {
+    "name": "ASSESSORIA TÉCNICA PARA CONTROLADORIA INTERNA DA EDUCAÇÃO",
+    "code": "ASTEC_CONT",
+    "active": true
+  },
+  "coord_controle_interno": {
+    "name": "COORDENAÇÃO DE CONTROLE INTERNO E ACOMPANHAMENTO DA EXECUÇÃO ORÇAMENTÁRIA",
+    "code": "COORD_CI",
+    "active": true
+  },
+  "coord_ouvidoria": {
+    "name": "COORDENAÇÃO DE OUVIDORIA",
+    "code": "COORD_OUV",
+    "active": true
+  },
+  "assessoria_juridica": {
+    "name": "ASSESSORIA JURÍDICA",
+    "code": "ASS_JUR",
+    "active": true
+  },
+  "coord_planej_compras": {
+    "name": "COORDENAÇÃO DE PLANEJAMENTO DE COMPRAS",
+    "code": "COORD_PLN_COMP",
+    "active": true
+  },
+  "coord_reg_pesquisa_precos": {
+    "name": "COORDENAÇÃO DE REGISTRO E PESQUISA DE PREÇOS",
+    "code": "COORD_REG_PREC",
+    "active": true
+  },
+  "diretoria_administrativa": {
+    "name": "DIRETORIA ADMINISTRATIVA",
+    "code": "DIR_ADM",
+    "active": true
+  },
+  "subsec_adj_administrativa": {
+    "name": "SUBSECRETARIA ADJUNTA ADMINISTRATIVA",
+    "code": "SUB_ADM",
+    "active": true
+  },
+  "subsec_adj_ass_educacionais": {
+    "name": "SUBSECRETARIA ADJUNTA DE ASSUNTOS EDUCACIONAIS",
+    "code": "SUB_ASS_ED",
+    "active": true
+  },
+  "diretoria_depto_pedagogico": {
+    "name": "DIRETORIA DO DEPARTAMENTO PEDAGÓGICO",
+    "code": "DIR_PED",
+    "active": true
+  },
+  "coord_ed_infantil": {
+    "name": "COORDENAÇÃO DE ED. INFANTIL",
+    "code": "COORD_ED_INF",
+    "active": true
+  },
+  "coord_apoio_alfabetizacao": {
+    "name": "COORDENAÇÃO DE APOIO DO CICLO DE ALFABETIZAÇÃO",
+    "code": "COORD_ALF",
+    "active": true
+  },
+  "coord_apoio_anos_iniciais": {
+    "name": "COORDENAÇÃO DE APOIO DOS ANOS INICIAIS 3º AO 5º ANO",
+    "code": "COORD_ANOS_INI",
+    "active": true
+  },
+  "coord_apoio_anos_finais": {
+    "name": "COORDENAÇÃO DE APOIO DOS ANOS FINAIS 6º AO 9º ANO",
+    "code": "COORD_ANOS_FIN",
+    "active": true
+  },
+  "coord_eja": {
+    "name": "COORDENAÇÃO DE EJA",
+    "code": "COORD_EJA",
+    "active": true
+  },
+  "coord_avaliacao_aprendizagem": {
+    "name": "COORDENAÇÃO DE AVALIAÇÃO DA APRENDIZAGEM",
+    "code": "COORD_AVAL",
+    "active": true
+  },
+  "coord_esportes_arte": {
+    "name": "COORDENAÇÃO DE ESPORTES E ARTE",
+    "code": "COORD_ESP_ART",
+    "active": true
+  },
+  "coord_apoio_prog_mec": {
+    "name": "COORDENAÇÃO DE APOIO A PROGRAMAS ESPECIAIS DO MEC",
+    "code": "COORD_PROG_MEC",
+    "active": true
+  },
+  "coord_apoio_ed_integral": {
+    "name": "COORDENAÇÃO DE APOIO DE EDUCAÇÃO INTEGRAL",
+    "code": "COORD_ED_INT",
+    "active": true
+  },
+  "diretoria_censo_matriculas": {
+    "name": "DIRETORIA DE CENSO E MATRÍCULAS",
+    "code": "DIR_CENSO",
+    "active": true
+  },
+  "coord_apoio_reg_acad": {
+    "name": "COORDENAÇÃO DE APOIO DE REGISTRO E CONTROLE ACADÊMICO",
+    "code": "COORD_REG_ACAD",
+    "active": true
+  },
+  "coord_apoio_permanencia": {
+    "name": "COORDENADOR DE APOIO A PERMANÊNCIA ESTUDANTIL",
+    "code": "COORD_PERM",
+    "active": true
+  },
+  "diretoria_atend_educ_esp": {
+    "name": "DIRETORIA DE ATENDIMENTO EDUCACIONAL ESPECIALIZADO",
+    "code": "DIR_AEE",
+    "active": true
+  },
+  "coord_educacao_especial": {
+    "name": "COORDENAÇÃO DE EDUCAÇÃO ESPECIAL",
+    "code": "COORD_ED_ESP",
+    "active": true
+  },
+  "diretoria_supervisao_gestao": {
+    "name": "DIRETORIA DE SUPERVISÃO E ACOMPANHAMENTO DA GESTÃO ESCOLAR",
+    "code": "DIR_SUP_GESC",
+    "active": true
+  },
+  "coord_apoio_supervisao": {
+    "name": "COORDENAÇÃO DE APOIO DE SUPERVISÃO ESCOLAR",
+    "code": "COORD_SUP_ESC",
+    "active": true
+  },
+  "conselho_municipal_educacao": {
+    "name": "CONSELHO MUNICIPAL DE EDUCAÇÃO",
+    "code": "CONSELHO_ED",
+    "active": true
+  },
+  "diretoria_planej_orc_fin": {
+    "name": "DIRETORIA DE PLANEJAMENTO ORÇAMENTÁRIO E FINANCEIRO DA EDUCAÇÃO",
+    "code": "DIR_PLN_ORC",
+    "active": true
+  },
+  "diretoria_controle_exec_orc": {
+    "name": "DIRETORIA DE CONTROLE E EXECUÇÃO ORÇAMENTÁRIA E FINANCEIRA DA EDUCAÇÃO",
+    "code": "DIR_CONT_EXEC",
+    "active": true
+  },
+  "coordenação_de_contabilidade": {
+    "name": "COORDENAÇÃO DE CONTABILIDADE",
+    "code": "ORÇAMENTO E FINANÇAS",
+    "active": true
+  },
+  "assessor_planej_orc_fin": {
+    "name": "ASSESSOR DE PLANEJAMENTO ORÇAMENTÁRIO E FINANCEIRO",
+    "code": "ASS_PLN_ORC",
+    "active": true
+  },
+  "assessor_controle_exec_orc": {
+    "name": "ASSESSOR DE CONTROLE E EXECUÇÃO ORÇAMENTÁRIA E FINANCEIRA",
+    "code": "ASS_CONT_EXEC",
+    "active": true
+  },
+  "departamento_financeiro": {
+    "name": "DEPARTAMENTO FINANCEIRO",
+    "code": "DEP_FIN",
+    "active": true
+  },
+  "assessoria_tec_contabil": {
+    "name": "ASSESSORIA TÉCNICA CONTÁBIL",
+    "code": "ASTEC_CONTABIL",
+    "active": true
+  },
+  "subsecretaria_adj_financeira": {
+    "name": "SUBSECRETARIA ADJUNTA FINANCEIRA",
+    "code": "SUB_FIN",
+    "active": true
+  },
+  "coord_prestacao_contas": {
+    "name": "COORDENAÇÃO DE PRESTAÇÃO DE CONTAS",
+    "code": "COORD_PREST_CONT",
+    "active": true
+  },
+  "ass_tec_superint_fme": {
+    "name": "ASSESSORIA TÉCNICA PARA SUPERINTENDÊNCIA DO FUNDO MUNICIPAL DE EDUCAÇÃO",
+    "code": "ASTEC_FME",
+    "active": true
+  },
+  "diretoria_infraestrutura": {
+    "name": "DIRETORIA DE INFRAESTRUTURA",
+    "code": "DIR_INFRA",
+    "active": true
+  },
+  "coord_manutencao": {
+    "name": "COORDENAÇÃO DE MANUTENÇÃO",
+    "code": "COORD_MANUT",
+    "active": true
+  },
+  "coord_projetos_infraestrutura": {
+    "name": "COORDENAÇÃO DE PROJETOS DE INFRAESTRUTURA",
+    "code": "COORD_PROJ_INF",
+    "active": true
+  },
+  "assessoria_tec_infraestrutura": {
+    "name": "ASSESSORIA TÉCNICA DE INFRAESTRUTURA",
+    "code": "ASTEC_INFRA",
+    "active": true
+  },
+  "subsecretaria_adj_infraestrutura": {
+    "name": "SUBSECRETARIA ADJUNTA DE INFRAESTRUTURA",
+    "code": "SUB_INFRA",
+    "active": true
+  },
+  "assessor_manutencao_edif": {
+    "name": "ASSESSOR DE MANUTENÇÃO - EDIFICAÇÕES",
+    "code": "ASS_MANUT_EDIF",
+    "active": true
+  },
+  "subsecretaria_adj_inovacao_tecnologia": {
+    "name": "Subsecretaria Adjunta de Inovação e Tecnologia SEMED",
+    "code": "SUB_INOV_TEC",
+    "active": true
+  },
+  "subsecretaria_adj_administrativa_semed": {
+    "name": "SUBSECRETARIA ADJUNTA ADMINISTRATIVA SEMED",
+    "code": "SUB_ADM_SEMED",
+    "active": true
+  },
+  "assessoria_tecnica_semed": {
+    "name": "ASSESSORIA TÉCNICA / SEMED",
+    "code": "ASTEC_SEMED",
+    "active": true
+  },
+  "diretoria_de_planejamento_orcamentario_financeiro": {
+    "name": "DIRETORIA DE PLANEJAMENTO ORÇAMENTÁRIO E FINANCEIRO",
+    "code": "DIR_PLN_ORC_FIN",
+    "active": true
+  },
+  "diretoria_de_infraestrutura_semed": {
+    "name": "DIRETORIA DE INFRAESTRUTURA SEMED",
+    "code": "DIR_INFRA_SEMED",
+    "active": true
+  },
+  "subsecretaria_adjunta_de_assuntos_educacionais_semed": {
+    "name": "SUBSECRETARIA ADJUNTA DE ASSUNTOS EDUCACIONAIS SEMED",
+    "code": "SUB_ASS_ED_SEMED",
+    "active": true
+  },
+  "diretoria_de_atendimento_educacional_especializado_semed": {
+    "name": "DIRETORIA DE ATENDIMENTO EDUCACIONAL ESPECIALIZADO SEMED",
+    "code": "DIR_AEE_SEMED",
+    "active": true
+  },
+  "diretoria_de_supervisao_e_acompanhamento_da_gestao_escolar_semed": {
+    "name": "DIRETORIA DE SUPERVISÃO E ACOMPANHAMENTO DA GESTÃO ESCOLAR SEMED",
+    "code": "DIR_SUP_GESC_SEMED",
+    "active": true
+  },
+  "conselho_municipal_de_educacao_semed": {
+    "name": "CONSELHO MUNICIPAL DE EDUCAÇÃO SEMED",
+    "code": "CONSELHO_ED_SEMED",
+    "active": true
+  }
+}

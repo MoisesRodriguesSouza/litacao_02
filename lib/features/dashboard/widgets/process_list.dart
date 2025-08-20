@@ -1,61 +1,43 @@
-// Placeholder: lib/features/dashboard/widgets/process_list.dart
+// lib/features/dashboard/widgets/process_list.dart
+// Widget para exibir uma lista de processos reais do Firestore.
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:acao_licita/core/services/firestore_service.dart';
-import 'package:acao_licita/core/models/process.dart'; // Importa o modelo de processo
 import 'package:go_router/go_router.dart';
+import '../../../core/models/process.dart'; // Importa o modelo de Process
 
-// Provedor para o serviço Firestore
-final firestoreServiceProvider = Provider((ref) => FirestoreService());
+class ProcessList extends StatelessWidget {
+  final List<Process> processes; // Lista de processos reais
 
-class ProcessList extends ConsumerWidget {
-  const ProcessList({super.key});
+  const ProcessList({super.key, required this.processes});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final firestoreService = ref.read(firestoreServiceProvider);
+  Widget build(BuildContext context) {
+    if (processes.isEmpty) {
+      return const Center(child: Text('Nenhum processo encontrado.'));
+    }
 
-    return StreamBuilder<List<Map<String, dynamic>>>(
-      stream: firestoreService.getProcesses(),
-      builder: (context, AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        if (snapshot.hasError) {
-          return Center(
-            child: Text('Erro ao carregar processos: ${snapshot.error}'),
-          );
-        }
-        if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Center(child: Text('Nenhum processo encontrado.'));
-        }
-
-        final processesData = snapshot.data!;
-
-        return ListView.builder(
-          itemCount: processesData.length,
-          itemBuilder: (context, index) {
-            final processMap = processesData[index];
-            final process = Process.fromJson(
-              processMap,
-            ); // Converte o mapa para o objeto Process
-
-            return Card(
-              margin: const EdgeInsets.symmetric(vertical: 8.0),
-              child: ListTile(
-                title: Text(process.codigoProcesso),
-                subtitle: Text(
-                  'Fase: ${process.faseAtual} - Status: ${process.status}',
-                ),
-                trailing: const Icon(Icons.arrow_forward_ios),
-                onTap: () {
-                  context.go(
-                    '/process-detail/${process.id}',
-                  ); // Navegar para a página de detalhes do processo
-                },
-              ),
-            );
-          },
+    return ListView.builder(
+      itemCount: processes.length,
+      itemBuilder: (context, index) {
+        final process = processes[index];
+        return Card(
+          margin: const EdgeInsets.symmetric(vertical: 8.0),
+          elevation: 1,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          child: ListTile(
+            leading: Icon(
+              Icons.description,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            title: Text(process.objectDescription),
+            subtitle: Text(
+              'Nº: ${process.processNumber} - Status: ${process.status} - Setor: ${process.sectorId}',
+            ),
+            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+            onTap: () {
+              // Navegar para a tela de detalhes do processo
+              context.go('/process-detail/${process.id}');
+            },
+          ),
         );
       },
     );

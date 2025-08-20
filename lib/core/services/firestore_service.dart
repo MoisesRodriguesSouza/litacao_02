@@ -1,59 +1,148 @@
-// Placeholder: lib/core/services/firestore_service.dart
-// Este serviço agora retorna apenas dados simulados
+// lib/core/services/firestore_service.dart
+// Serviço para interagir com o Firebase Firestore e gerenciar dados de processos, setores e utilizadores.
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../models/process.dart'; // Importa o modelo de Process
+import '../models/user.dart'; // Importa o modelo de User
+import '../models/renewal.dart'; // Importa o modelo de Renewal
+import '../models/sector.dart'; // Importa o modelo de Sector
+
 class FirestoreService {
-  // Exemplo de como obter dados (simulado)
-  Stream<List<Map<String, dynamic>>> getProcesses() {
-    print('Simulando obtenção de processos.');
-    // Retorna uma lista de processos simulados
-    return Stream.value([
-      {
-        'id': 'proc_001',
-        'codigo_processo': 'PL-2024-001',
-        'fase_atual': 'ETP',
-        'status': 'Em Andamento',
-        'objeto_licitacao': 'Aquisição de Material de Escritório',
-        'data_abertura': DateTime.now()
-            .subtract(Duration(days: 30))
-            .toIso8601String(),
-        'data_prevista_conclusao': DateTime.now()
-            .add(Duration(days: 60))
-            .toIso8601String(),
-        'assessor_tecnico_id': 'simulated_user_id',
-      },
-      {
-        'id': 'proc_002',
-        'codigo_processo': 'DL-2024-005',
-        'fase_atual': 'Homologação',
-        'status': 'Finalizado',
-        'objeto_licitacao': 'Contratação de Serviço de Limpeza',
-        'data_abertura': DateTime.now()
-            .subtract(Duration(days: 90))
-            .toIso8601String(),
-        'data_prevista_conclusao': DateTime.now()
-            .subtract(Duration(days: 10))
-            .toIso8601String(),
-        'assessor_tecnico_id': 'simulated_user_id',
-      },
-      {
-        'id': 'proc_003',
-        'codigo_processo': 'PE-2024-010',
-        'fase_atual': 'Parado',
-        'status': 'Parado',
-        'objeto_licitacao': 'Reforma de Edifício Público',
-        'data_abertura': DateTime.now()
-            .subtract(Duration(days: 120))
-            .toIso8601String(),
-        'data_prevista_conclusao': DateTime.now()
-            .add(Duration(days: 30))
-            .toIso8601String(),
-        'assessor_tecnico_id': 'simulated_user_id',
-      },
-    ]);
+  final FirebaseFirestore _db =
+      FirebaseFirestore.instance; // Instância do Firestore
+
+  // --- Operações para Processos ---
+
+  // Obtém um stream de todos os processos
+  Stream<List<Process>> getProcesses() {
+    return _db
+        .collection('processes')
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs
+              .map((doc) => Process.fromFirestore(doc.data(), doc.id))
+              .toList(),
+        );
   }
 
-  // Exemplo de como adicionar dados (simulado)
-  Future<void> addProcess(Map<String, dynamic> data) async {
-    print('Simulando adição de processo: $data');
-    await Future.delayed(const Duration(seconds: 1)); // Simula uma requisição
+  // Obtém um stream de um processo específico por ID
+  Stream<Process?> getProcessById(String id) {
+    return _db.collection('processes').doc(id).snapshots().map((snapshot) {
+      if (!snapshot.exists) {
+        return null;
+      }
+      return Process.fromFirestore(snapshot.data()!, snapshot.id);
+    });
+  }
+
+  // Adiciona um novo processo
+  Future<void> addProcess(Process process) {
+    return _db.collection('processes').add(process.toFirestore());
+  }
+
+  // Atualiza um processo existente
+  Future<void> updateProcess(Process process) {
+    return _db
+        .collection('processes')
+        .doc(process.id)
+        .update(process.toFirestore());
+  }
+
+  // Elimina um processo
+  Future<void> deleteProcess(String id) {
+    return _db.collection('processes').doc(id).delete();
+  }
+
+  // --- Operações para Utilizadores (User) ---
+
+  // Obtém um utilizador por ID
+  Future<User?> getUserById(String id) async {
+    final doc = await _db.collection('users').doc(id).get();
+    if (!doc.exists) {
+      return null;
+    }
+    return User.fromFirestore(doc.data()!, doc.id);
+  }
+
+  // Adiciona ou atualiza um utilizador (usado principalmente após o registo/login)
+  Future<void> saveUser(User user) {
+    return _db.collection('users').doc(user.id).set(user.toFirestore());
+  }
+
+  // Obtém um stream de todos os utilizadores (para assessores, por exemplo)
+  Stream<List<User>> getUsers() {
+    return _db
+        .collection('users')
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs
+              .map((doc) => User.fromFirestore(doc.data(), doc.id))
+              .toList(),
+        );
+  }
+
+  // --- Operações para Setores ---
+
+  // Obtém um stream de todos os setores
+  Stream<List<Sector>> getSectors() {
+    return _db
+        .collection('sectors')
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs
+              .map((doc) => Sector.fromFirestore(doc.data(), doc.id))
+              .toList(),
+        );
+  }
+
+  // Adiciona um novo setor
+  Future<void> addSector(Sector sector) {
+    return _db.collection('sectors').add(sector.toFirestore());
+  }
+
+  // Atualiza um setor existente
+  Future<void> updateSector(Sector sector) {
+    return _db
+        .collection('sectors')
+        .doc(sector.id)
+        .update(sector.toFirestore());
+  }
+
+  // Elimina um setor
+  Future<void> deleteSector(String id) {
+    return _db.collection('sectors').doc(id).delete();
+  }
+
+  // --- Operações para Renovações/Aditivos ---
+  // (Mantido como estava, pois a estrutura já estava definida)
+
+  // Obtém um stream de renovações/aditivos para um processo específico
+  Stream<List<Renewal>> getRenewalsForProcess(String processId) {
+    return _db
+        .collection('renewals_additives')
+        .where('processId', isEqualTo: processId)
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs
+              .map((doc) => Renewal.fromFirestore(doc.data(), doc.id))
+              .toList(),
+        );
+  }
+
+  // Adiciona uma nova renovação/aditivo
+  Future<void> addRenewal(Renewal renewal) {
+    return _db.collection('renewals_additives').add(renewal.toFirestore());
+  }
+
+  // Atualiza uma renovação/aditivo
+  Future<void> updateRenewal(Renewal renewal) {
+    return _db
+        .collection('renewals_additives')
+        .doc(renewal.id)
+        .update(renewal.toFirestore());
+  }
+
+  // Elimina uma renovação/aditivo
+  Future<void> deleteRenewal(String id) {
+    return _db.collection('renewals_additives').doc(id).delete();
   }
 }

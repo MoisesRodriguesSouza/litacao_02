@@ -2,7 +2,6 @@
 // Configuração do roteador GoRouter para navegação na aplicação.
 import 'package:acao_licita/features/process_management/screens/new_process_page.dart';
 import 'package:acao_licita/features/process_management/screens/process_detail_page.dart';
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../core/providers/auth_provider.dart'; // Importa o provedor de autenticação
